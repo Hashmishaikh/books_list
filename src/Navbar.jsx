@@ -4,7 +4,7 @@ import PostModal from "./PostModal";
 import { useDispatch } from 'react-redux';
 import { searchAction } from "./redux/action/SearchAction";
 
-const Navbar = () => {
+const Navbar = ({getData}) => {
     const [gettingSearch, setGettingSearch] = useState("");
     const dispatch = useDispatch();
     const searchMovie = (e, data) => {
@@ -44,7 +44,7 @@ const Navbar = () => {
                     </form>
                 </div>
             </nav>
-            <PostModal />
+            <PostModal getData={getData} />
         </div>
     );
 };
