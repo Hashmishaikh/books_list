@@ -10,6 +10,34 @@ const Home = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const [pagePerUsers, setPagePerUsers] = useState(5);
 
+  const sortingup = () => {
+    const sorted = [...getMappedData].sort((a, b) => {
+      // a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+      // a[col] - b[col]
+      const first = `${a.title}`;
+      const second = `${b.title}`;
+      return first.localeCompare(second);
+    });
+    setMappedData(sorted);
+    // setTypeName("Old to New")
+    // setOrder("down");
+  
+}
+
+const sortingdown = () => {
+  const sorted = [...getMappedData].sort((a, b) => {
+    // a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+    // a[col] - b[col]
+    const first = `${a.title}`;
+    const second = `${b.title}`;
+    return second.localeCompare(first);
+  });
+  setMappedData(sorted);
+  // setTypeName("Old to New")
+  // setOrder("down");
+
+}
+
   const usersPerPage = parseInt(pagePerUsers);
   const pageVisited = pageNumber * usersPerPage;
   const { searchData } = useSelector((state) => state.search);
@@ -37,6 +65,16 @@ const Home = () => {
         <Navbar getData={getData} />
       </div>
       <div className="container mb-3">
+      <div className="dropdown">
+  <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    Sort by title
+  </button>
+  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a onClick={sortingup} className="dropdown-item" href="#">A-Z</a></li>
+    <li><a onClick={sortingdown} className="dropdown-item" href="#">Z-A</a></li>
+    {/* <li><a className="dropdown-item" href="#">Something else here</a></li> */}
+  </ul>
+</div>
         <div className="row">
           {getMappedData
             .filter((result) => {
@@ -49,14 +87,7 @@ const Home = () => {
             .slice(pageVisited, pageVisited + usersPerPage)
             .map((res) => (
               <CardMapping
-                id={res.id}
-                title={res.title}
-                author={res.author}
-                country={res.country}
-                language={res.language}
-                link={res.link}
-                year={res.year}
-                pages={res.pages}
+                dataWrapped = {res}
               />
             ))}
         </div>

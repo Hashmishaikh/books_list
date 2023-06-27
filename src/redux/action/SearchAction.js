@@ -7,3 +7,10 @@ export const searchAction = (userDetails) => {
     payload: userDetails,
   };
 };
+export const EditAction = (userDetails) => {
+  // console.log("userDetails", userDetails);
+  return {
+    type: actionTypes.EDIT_DETAILS,
+    payload: userDetails,
+  };
+};
